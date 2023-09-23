@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package io.inhibitor.protobufplayground.coreapi.usercdc;
+
+import "protobuf/coreapi/cdc.proto";
+import "protobuf/coreapi/user.proto";
+import "google/protobuf/timestamp.proto";
+
+message UserCDCEvent {
+  optional string id = 1;
+  optional google.protobuf.Timestamp timestamp = 2;
+  optional io.inhibitor.protobufplayground.coreapi.cdc.CDCEventType type = 3;
+  optional UserCDCPayload payload = 4;
+}
+
+message UserCDCPayload {
+  message Create {
+    optional io.inhibitor.protobufplayground.coreapi.user.User newbie = 1;
+  }
+
+  message Update {
+    optional io.inhibitor.protobufplayground.coreapi.user.User oldbie = 1;
+    optional io.inhibitor.protobufplayground.coreapi.user.User newbie = 2;
+  }
+
+  message Delete {
+    optional io.inhibitor.protobufplayground.coreapi.user.User oldbie = 1;
+  }
+
+  oneof payload {
+    Create create = 1;
+    Update update = 2;
+    Delete delete = 3;
+  }
+}

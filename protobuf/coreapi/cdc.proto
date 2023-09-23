@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package io.inhibitor.protobufplayground.coreapi.cdc;
+
+enum CDCEventType {
+  CDC_EVENT_TYPE_UNSPECIFIED = 0;
+  CDC_EVENT_TYPE_CREATE = 1;
+  CDC_EVENT_TYPE_UPDATE = 2;
+  CDC_EVENT_TYPE_DELETE = 3;
+}
