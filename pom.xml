@@ -1,0 +1,92 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.inhibitor.protobufplayground</groupId>
+  <artifactId>playground</artifactId>
+  <version>1</version>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>confluent</id>
+      <url>https://packages.confluent.io/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.confluent</groupId>
+        <artifactId>kafka-schema-registry-maven-plugin</artifactId>
+        <version>7.5.0</version>
+
+        <configuration>
+          <schemaRegistryUrls>
+            <param>http://localhost:8081</param>
+          </schemaRegistryUrls>
+          <subjects>
+            <io.inhibitor.protobufplayground.coreapi.cdc>protobuf/coreapi/cdc.proto</io.inhibitor.protobufplayground.coreapi.cdc>
+            <io.inhibitor.protobufplayground.coreapi.user>protobuf/coreapi/user.proto</io.inhibitor.protobufplayground.coreapi.user>
+            <io.inhibitor.protobufplayground.coreapi.usercdc>protobuf/coreapi/user_cdc.proto</io.inhibitor.protobufplayground.coreapi.usercdc>
+          </subjects>
+          <schemaTypes>
+            <io.inhibitor.protobufplayground.coreapi.cdc>PROTOBUF</io.inhibitor.protobufplayground.coreapi.cdc>
+            <io.inhibitor.protobufplayground.coreapi.user>PROTOBUF</io.inhibitor.protobufplayground.coreapi.user>
+            <io.inhibitor.protobufplayground.coreapi.usercdc>PROTOBUF</io.inhibitor.protobufplayground.coreapi.usercdc>
+          </schemaTypes>
+          <references>
+            <io.inhibitor.protobufplayground.coreapi.usercdc>
+              <reference>
+                <name>protobuf/coreapi/cdc.proto</name>
+                <subject>io.inhibitor.protobufplayground.coreapi.cdc</subject>
+                <version>1</version>
+              </reference>
+              <reference>
+                <name>protobuf/coreapi/user.proto</name>
+                <subject>io.inhibitor.protobufplayground.coreapi.user</subject>
+                <version>1</version>
+              </reference>
+            </io.inhibitor.protobufplayground.coreapi.usercdc>
+          </references>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>set-compatibility</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>set-compatibility</goal>
+            </goals>
+            <configuration>
+              <compatibilityLevels>
+                <io.inhibitor.protobufplayground.coreapi.user>BACKWARD_TRANSITIVE</io.inhibitor.protobufplayground.coreapi.user>
+              </compatibilityLevels>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>test-compatibility</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>test-compatibility</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>register</id>
+            <goals>
+              <goal>register</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
