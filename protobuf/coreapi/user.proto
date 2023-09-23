@@ -17,6 +17,7 @@ message User {
   optional UserType type = 3;
   repeated string tags = 4;
   optional google.protobuf.Struct profile = 5;
+  optional string language = 9;
   optional google.protobuf.Timestamp created_at = 6;
   optional google.protobuf.Timestamp updated_at = 7;
   optional int64 version = 8;
