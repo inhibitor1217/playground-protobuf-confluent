@@ -19,7 +19,15 @@ message User {
   optional string id = 1;
   optional UserType type = 3;
   repeated string tags = 4;
-  optional google.protobuf.Struct profile = 5;
+  optional google.protobuf.Struct profile_old = 5 [deprecated=true];
+
+  message Profile {
+    optional string name = 1;
+    optional string email = 2;
+    optional string mobile_number = 3;
+  }
+
+  optional Profile profile = 10;
   optional string language = 9;
   optional google.protobuf.Timestamp created_at = 6;
   optional google.protobuf.Timestamp updated_at = 7;
