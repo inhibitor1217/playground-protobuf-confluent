@@ -12,8 +12,9 @@ enum UserType {
 }
 
 message User {
+  reserved 2;
+
   optional string id = 1;
-  optional string channel_id = 2;
   optional UserType type = 3;
   repeated string tags = 4;
   optional google.protobuf.Struct profile = 5;
