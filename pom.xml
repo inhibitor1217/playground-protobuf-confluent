@@ -43,7 +43,7 @@
               <reference>
                 <name>protobuf/coreapi/user.proto</name>
                 <subject>io.inhibitor.protobufplayground.coreapi.user</subject>
-                <version>5</version>
+                <version>6</version>
               </reference>
             </io.inhibitor.protobufplayground.coreapi.usercdc>
           </references>
